@@ -1,0 +1,156 @@
+package com.exory550.exorypad.ui.routes
+
+import androidx.activity.compose.BackHandler
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import com.exory550.exorypad.R
+import com.exory550.exorypad.ui.components.AppBarText
+import com.exory550.exorypad.ui.components.BackButton
+import com.exory550.exorypad.ui.components.DeleteButton
+import com.exory550.exorypad.ui.components.DeleteDialog
+import com.exory550.exorypad.ui.components.ExorypadTheme
+import com.exory550.exorypad.ui.components.SaveButton
+import com.exory550.exorypad.ui.components.SaveDialog
+import com.exory550.exorypad.ui.components.StandaloneEditorMenu
+import com.exory550.exorypad.ui.content.EditNoteContent
+import com.exory550.exorypad.viewmodel.ExorypadViewModel
+import org.koin.androidx.compose.koinViewModel
+
+@Composable
+fun StandaloneEditorRoute(
+    initialText: String,
+    onExit: () -> Unit
+) {
+    val vm: ExorypadViewModel = koinViewModel()
+    val isLightTheme by vm.prefs.isLightTheme.collectAsState()
+    val backgroundColorRes by vm.prefs.backgroundColorRes.collectAsState()
+    val rtlLayout by vm.prefs.rtlLayout.collectAsState()
+
+    ExorypadTheme(isLightTheme, backgroundColorRes, rtlLayout) {
+        StandaloneEditor(
+            vm = vm,
+            initialText = initialText,
+            onExit = onExit
+        )
+    }
+}
+
+@Composable
+private fun StandaloneEditor(
+    vm: ExorypadViewModel = koinViewModel(),
+    initialText: String,
+    onExit: () -> Unit
+) {
+    val isLightTheme by vm.prefs.isLightTheme.collectAsState()
+    val backgroundColorRes by vm.prefs.backgroundColorRes.collectAsState()
+    val primaryColorRes by vm.prefs.primaryColorRes.collectAsState()
+    val textFontSize by vm.prefs.textFontSize.collectAsState()
+    val fontFamily by vm.prefs.fontFamily.collectAsState()
+    val showDialogs by vm.prefs.showDialogs.collectAsState()
+    val rtlLayout by vm.prefs.rtlLayout.collectAsState()
+
+    var text: String by rememberSaveable { mutableStateOf(initialText) }
+    var showSaveDialog by rememberSaveable { mutableStateOf(false) }
+    var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
+    var showMenu by rememberSaveable { mutableStateOf(false) }
+
+    val textStyle = TextStyle(
+        color = colorResource(id = primaryColorRes),
+        fontSize = textFontSize,
+        fontFamily = fontFamily
+    )
+
+    val onSave = {
+        vm.saveNote(-1L, text) { onExit() }
+    }
+
+    val onDismiss = { showMenu = false }
+    val onMoreClick = { showMenu = true }
+    val onSaveClick: () -> Unit = {
+        if (showDialogs) {
+            showSaveDialog = true
+        } else {
+            onSave()
+        }
+    }
+    val onDeleteClick: () -> Unit = {
+        showDeleteDialog = true
+    }
+    val onShareClick: () -> Unit = {
+        onDismiss()
+        vm.shareNote(text)
+    }
+    val onBack: () -> Unit = {
+        if (text.isNotEmpty()) onSaveClick() else onExit()
+    }
+
+    if (showDeleteDialog) {
+        DeleteDialog(
+            onConfirm = {
+                showDeleteDialog = false
+                onExit()
+            },
+            onDismiss = {
+                showDeleteDialog = false
+            }
+        )
+    }
+
+    if(showSaveDialog) {
+        SaveDialog(
+            onConfirm = {
+                showSaveDialog = false
+                onSave()
+            },
+            onDiscard = {
+                showSaveDialog = false
+                onExit()
+            },
+            onDismiss = {
+                showSaveDialog = false
+            }
+        )
+    }
+
+    BackHandler(onBack = onBack)
+
+    Scaffold(
+        backgroundColor = colorResource(id = backgroundColorRes),
+        topBar = {
+            TopAppBar(
+                navigationIcon = { BackButton(onBack) },
+                title = { AppBarText(stringResource(id = R.string.action_new)) },
+                backgroundColor = colorResource(id = R.color.primary),
+                actions = {
+                    SaveButton(onSaveClick)
+                    DeleteButton(onDeleteClick)
+                    StandaloneEditorMenu(
+                        showMenu = showMenu,
+                        onDismiss = onDismiss,
+                        onMoreClick = onMoreClick,
+                        onShareClick = onShareClick
+                    )
+                }
+            )
+        },
+        content = {
+            EditNoteContent(
+                text = text,
+                baseTextStyle = textStyle,
+                isLightTheme = isLightTheme,
+                rtlLayout = rtlLayout,
+                offset = null,
+                onTextChanged = { text = it }
+            )
+        }
+    )
+}

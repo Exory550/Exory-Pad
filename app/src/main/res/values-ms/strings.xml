@@ -1,0 +1,97 @@
+<resources>
+
+    <string name="action_cancel">Batal</string>
+    <string name="action_close">Tutup</string>
+    <string name="action_delete">Padam</string>
+    <string name="action_discard">Buang</string>
+    <string name="action_edit">Sunting</string>
+    <string name="action_export">Eksport</string>
+    <string name="action_font_size">Saiz fon</string>
+    <string name="action_new">Nota Baru</string>
+    <string name="action_save">Simpan</string>
+    <string name="action_settings">Tetapan</string>
+    <string name="action_share">Kongsi</string>
+    <string name="action_sort_by">Susun nota mengikut</string>
+    <string name="action_export_filename">Nama fail yang dieksport</string>
+    <string name="app_name">Exorypad</string>
+    <string name="app_name_debug">Exorypad (Debug)</string>
+    <string name="cab_note_selected">%d nota dipilih</string>
+    <string name="cab_notes_selected">%d nota dipilih</string>
+    <string name="changes_discarded">Perubahan dibuang</string>
+    <string name="dialog_about_message">Exorypad: aplikasi nota ringkas\n\n&#169; %d exory550\nLogo aplikasi oleh Tobaloidee</string>
+    <string name="dialog_about_title">Perihal Exorypad</string>
+    <string name="dialog_are_you_sure">Adakah anda pasti?</string>
+    <string name="dialog_delete_button_title">Padam nota</string>
+    <string name="dialog_delete_button_title_plural">Padam nota</string>
+    <string name="dialog_save_button_title">Simpan perubahan</string>
+    <string name="dialog_save_changes">Adakah anda ingin menyimpan perubahan?</string>
+    <string name="draft_restored">Draf dipulihkan</string>
+    <string name="draft_saved">Draf disimpan</string>
+    <string name="double_tap">Tip: ketuk dua kali teks untuk bertukar ke mod Sunting</string>
+    <string name="edit_text">Taip untuk menambah teks</string>
+    <string name="empty_note">Sila masukkan beberapa teks!</string>
+    <string name="first_run">Selamat datang ke Exorypad!\n\nUntuk membuat nota, klik butang Nota Baru (tanda tambah).</string>
+    <string name="first_view">Untuk menyunting nota yang disimpan, ketuk dua kali teks atau klik butang Sunting (pensil).</string>
+    <string name="import_notes">Import nota</string>
+    <string name="loading_external_file">Gagal memuat kandungan luaran (atau jenis kandungan tidak disokong)</string>
+    <string name="no_notes_found">Tiada nota ditemui</string>
+    <string name="note_deleted">Nota dipadam</string>
+    <string name="note_exported_to">Nota berjaya dieksport</string>
+    <string name="note_saved">Nota disimpan</string>
+    <string name="notes_deleted">Nota dipadam</string>
+    <string name="notes_exported_to">Nota berjaya dieksport</string>
+    <string name="note_imported_successfully">Nota berjaya diimport</string>
+    <string name="notes_imported_successfully">Nota berjaya diimport</string>
+    <string name="pref_title_show_dialogs">Tanya sebelum menyimpan</string>
+    <string name="send_to">Kongsi nota ke&#8230;</string>
+    <string name="pref_title_show_date">Tunjukkan tarikh/masa</string>
+    <string name="action_theme">Tema</string>
+    <string name="pref_title_direct_edit">Sunting nota secara langsung</string>
+    <string name="pref_title_markdown">Sokongan Markdown/HTML</string>
+    <string name="action_print">Cetak</string>
+    <string name="action_start_selection">Pilih nota</string>
+    <string name="action_select_all">Pilih semua</string>
+    <string name="no_notes_to_select">Tiada nota untuk dipilih</string>
+    <string name="document">Dokumen %1$s</string>
+    <string name="no_notes_to_export">Tiada nota dipilih untuk dieksport</string>
+    <string name="no_notes_to_delete">Tiada nota dipilih untuk dipadam</string>
+    <string name="check_for_updates">Periksa Kemas Kini</string>
+    <string name="rtl_layout">Tata letak kanan-ke-kiri</string>
+    <string name="pref_title_font_type">Jenis fon</string>
+    <string name="export_all_notes">Sandarkan semua nota</string>
+    <string name="import_all_notes">Pulihkan dari sandaran</string>
+    <string name="error_exporting_notes">Ralat mengeksport nota ke JSON!</string>
+    <string name="error_importing_notes">Ralat mengimport nota dari JSON!</string>
+    <string name="action_search_notes">Cari nota</string>
+    <string name="no_notes_to_search">Tiada nota untuk dicari</string>
+
+    <string-array name="sort_by_list">
+        <item>Tarikh (terbaharu dulu)</item>
+        <item>Tarikh (terlama dulu)</item>
+        <item>Nama (A ke Z)</item>
+        <item>Nama (Z ke A)</item>
+    </string-array>
+    <string-array name="theme_list">
+        <item>Sistem</item>
+        <item>Terang</item>
+        <item>Gelap</item>
+    </string-array>
+    <string-array name="font_type_list">
+        <item>Tanpa serif</item>
+        <item>Serif</item>
+        <item>Monospace</item>
+    </string-array>
+    <string-array name="font_size_list">
+        <item>Paling kecil</item>
+        <item>Kecil</item>
+        <item>Normal</item>
+        <item>Besar</item>
+        <item>Paling besar</item>
+    </string-array>
+    <string-array name="exported_filename_list">
+        <item>Baris pertama teks</item>
+        <item>Baris pertama + cap masa</item>
+        <item>Cap masa + baris pertama</item>
+    </string-array>
+
+</resources>

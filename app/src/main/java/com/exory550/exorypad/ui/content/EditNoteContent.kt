@@ -1,0 +1,129 @@
+package com.exory550.exorypad.ui.content
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.OutputTransformation
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.exory550.exorypad.R
+import com.exory550.exorypad.ui.components.RtlTextWrapper
+import com.exory550.exorypad.ui.previews.EditNotePreview
+import kotlinx.coroutines.delay
+
+private fun String.toTextFieldState() = TextFieldState(
+    initialText = this,
+    initialSelection = TextRange(length)
+)
+
+@Composable
+fun EditNoteContent(
+    text: String,
+    baseTextStyle: TextStyle = TextStyle(),
+    isLightTheme: Boolean = true,
+    isPrinting: Boolean = false,
+    waitForAnimation: Boolean = false,
+    rtlLayout: Boolean = false,
+    offset: Offset? = null,
+    onTextChanged: (String) -> Unit = {},
+) {
+    val textStyle = if (isPrinting) {
+        baseTextStyle.copy(color = Color.Black)
+    } else baseTextStyle
+
+    val focusRequester = remember { FocusRequester() }
+    var value by remember { mutableStateOf(text.toTextFieldState()) }
+
+    LaunchedEffect(text) {
+        if (text != value.text) {
+            value = text.toTextFieldState()
+        }
+    }
+
+    val brush = SolidColor(
+        value = when {
+            isPrinting -> Color.Transparent
+            isLightTheme -> Color.Black
+            else -> Color.White
+        }
+    )
+
+    val layoutResult = remember { mutableStateOf<TextLayoutResult?>(null) }
+
+    RtlTextWrapper(text, rtlLayout) {
+        BasicTextField(
+            state = value,
+            outputTransformation = OutputTransformation { onTextChanged(value.text.toString()) },
+            textStyle = textStyle,
+            cursorBrush = brush,
+            keyboardOptions = KeyboardOptions(
+                capitalization = KeyboardCapitalization.Sentences
+            ),
+            onTextLayout = {
+                layoutResult.value = it()
+            },
+            modifier = Modifier
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 12.dp
+                )
+                .fillMaxSize()
+                .focusRequester(focusRequester)
+        )
+    }
+
+    if(value.text.isEmpty()) {
+        BasicText(
+            text = stringResource(id = R.string.edit_text),
+            style = TextStyle(
+                fontSize = 16.sp,
+                color = Color.LightGray
+            ),
+            modifier = Modifier
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 12.dp
+                )
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        if (waitForAnimation) {
+            delay(200)
+        }
+
+        offset?.let { offset ->
+            layoutResult.value?.let { layoutResult ->
+                val position = layoutResult.getOffsetForPosition(offset)
+                value.edit { selection = TextRange(position) }
+            }
+        }
+
+        focusRequester.requestFocus()
+    }
+}
+
+@Preview
+@Composable
+fun EditNoteContentPreview() = EditNotePreview()

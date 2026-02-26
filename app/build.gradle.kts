@@ -5,9 +5,16 @@ plugins {
     id("kotlin-android")
     id("org.jetbrains.kotlin.plugin.compose") version libs.versions.kotlin.get()
     id("com.squareup.sqldelight")
-    kotlin("plugin.serialization") version libs.versions.kotlin.get()
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
+repositories {
+    mavenLocal()
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+    maven(url = "https://jitpack.io")
+}
 
 android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -42,8 +49,8 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     kotlinOptions {

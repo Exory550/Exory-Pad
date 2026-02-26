@@ -117,3 +117,10 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     coreLibraryDesugaring(libs.android.coreLibraryDesugaring)
 }
+
+sqldelight {
+    database("ExorypadDatabase") {
+        packageName = "com.exory550.exorypad.database"
+        schemaOutputDirectory = file("src/main/sqldelight/databases")
+    }
+}

@@ -5,7 +5,7 @@ plugins {
     id("kotlin-android")
     id("org.jetbrains.kotlin.plugin.compose") version libs.versions.kotlin.get()
     id("com.squareup.sqldelight")
-    kotlin("plugin.serialization") version "2.1.0"
+    kotlin("plugin.serialization") version libs.versions.kotlin.get()
 }
 
 repositories {

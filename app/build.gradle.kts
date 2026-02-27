@@ -8,13 +8,6 @@ plugins {
     kotlin("plugin.serialization") version "2.1.0"
 }
 
-repositories {
-    mavenLocal()
-    google()
-    mavenCentral()
-    gradlePluginPortal()
-    maven(url = "https://jitpack.io")
-}
 
 android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()

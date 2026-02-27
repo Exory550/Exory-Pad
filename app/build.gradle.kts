@@ -119,7 +119,7 @@ dependencies {
 }
 
 sqldelight {
-    database("ExorypadDatabase") {
+    database("Database") {
         packageName = "com.exory550.exorypad.model"
         schemaOutputDirectory = file("src/main/sqldelight/databases")
     }

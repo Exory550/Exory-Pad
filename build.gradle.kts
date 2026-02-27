@@ -15,14 +15,6 @@ plugins {
     id("com.github.ben-manes.versions") version libs.versions.versionsPlugin.get()
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven(url = "https://jitpack.io")
-    }
-}
-
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }

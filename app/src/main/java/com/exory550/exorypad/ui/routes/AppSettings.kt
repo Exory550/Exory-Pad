@@ -33,6 +33,7 @@ fun SettingsDialog(onDismiss: () -> Unit) {
 }
 
 @Composable
+@OptIn(ExperimentalMaterialApi::class)
 fun ExorypadPreferenceScreen(
     vm: ExorypadViewModel = koinViewModel()
 ) {

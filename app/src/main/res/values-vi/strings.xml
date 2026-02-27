@@ -1,0 +1,97 @@
+<resources>
+
+    <string name="action_cancel">Hủy</string>
+    <string name="action_close">Đóng</string>
+    <string name="action_delete">Xóa</string>
+    <string name="action_discard">Hủy bỏ</string>
+    <string name="action_edit">Sửa</string>
+    <string name="action_export">Xuất</string>
+    <string name="action_font_size">Cỡ chữ</string>
+    <string name="action_new">Ghi chú mới</string>
+    <string name="action_save">Lưu</string>
+    <string name="action_settings">Cài đặt</string>
+    <string name="action_share">Chia sẻ</string>
+    <string name="action_sort_by">Sắp xếp ghi chú theo</string>
+    <string name="action_export_filename">Tên file xuất</string>
+    <string name="app_name">Exorypad</string>
+    <string name="app_name_debug">Exorypad (Debug)</string>
+    <string name="cab_note_selected">%d ghi chú được chọn</string>
+    <string name="cab_notes_selected">%d ghi chú được chọn</string>
+    <string name="changes_discarded">Đã hủy thay đổi</string>
+    <string name="dialog_about_message">Exorypad: ứng dụng ghi chú đơn giản\n\n&#169; %d Exory550\nLogo ứng dụng bởi Tobaloidee</string>
+    <string name="dialog_about_title">Giới thiệu Exorypad</string>
+    <string name="dialog_are_you_sure">Bạn có chắc không?</string>
+    <string name="dialog_delete_button_title">Xóa ghi chú</string>
+    <string name="dialog_delete_button_title_plural">Xóa ghi chú</string>
+    <string name="dialog_save_button_title">Lưu thay đổi</string>
+    <string name="dialog_save_changes">Bạn có muốn lưu thay đổi?</string>
+    <string name="draft_restored">Đã khôi phục bản nháp</string>
+    <string name="draft_saved">Đã lưu bản nháp</string>
+    <string name="double_tap">Mẹo: nhấp đúp vào văn bản để chuyển sang chế độ Sửa</string>
+    <string name="edit_text">Nhập để thêm văn bản</string>
+    <string name="empty_note">Vui lòng nhập văn bản!</string>
+    <string name="first_run">Chào mừng đến với Exorypad!\n\nĐể tạo ghi chú mới, nhấp vào nút Ghi chú mới (dấu cộng).</string>
+    <string name="first_view">Để sửa ghi chú đã lưu, nhấp đúp vào văn bản hoặc nhấp vào nút Sửa (bút chì).</string>
+    <string name="import_notes">Nhập file văn bản</string>
+    <string name="loading_external_file">Không thể tải nội dung bên ngoài (hoặc loại nội dung không được hỗ trợ)</string>
+    <string name="no_notes_found">Không tìm thấy ghi chú</string>
+    <string name="note_deleted">Đã xóa ghi chú</string>
+    <string name="note_exported_to">Xuất ghi chú thành công</string>
+    <string name="note_saved">Đã lưu ghi chú</string>
+    <string name="notes_deleted">Đã xóa ghi chú</string>
+    <string name="notes_exported_to">Xuất ghi chú thành công</string>
+    <string name="note_imported_successfully">Nhập ghi chú thành công</string>
+    <string name="notes_imported_successfully">Nhập ghi chú thành công</string>
+    <string name="pref_title_show_dialogs">Hỏi trước khi lưu</string>
+    <string name="send_to">Chia sẻ ghi chú đến&#8230;</string>
+    <string name="pref_title_show_date">Hiển thị ngày/giờ</string>
+    <string name="action_theme">Giao diện</string>
+    <string name="pref_title_direct_edit">Sửa ghi chú trực tiếp</string>
+    <string name="pref_title_markdown">Hỗ trợ Markdown/HTML</string>
+    <string name="action_print">In</string>
+    <string name="action_start_selection">Chọn ghi chú</string>
+    <string name="action_select_all">Chọn tất cả</string>
+    <string name="no_notes_to_select">Không có ghi chú để chọn</string>
+    <string name="document">%1$s Tài liệu</string>
+    <string name="no_notes_to_export">Không có ghi chú nào được chọn để xuất</string>
+    <string name="no_notes_to_delete">Không có ghi chú nào được chọn để xóa</string>
+    <string name="check_for_updates">Kiểm tra cập nhật</string>
+    <string name="rtl_layout">Bố cục phải sang trái</string>
+    <string name="pref_title_font_type">Loại phông chữ</string>
+    <string name="action_search_notes">Tìm kiếm ghi chú</string>
+    <string name="no_notes_to_search">Không có ghi chú để tìm</string>
+    <string name="export_all_notes">Sao lưu tất cả ghi chú</string>
+    <string name="import_all_notes">Khôi phục từ sao lưu</string>
+    <string name="error_exporting_notes">Lỗi xuất ghi chú sang JSON!</string>
+    <string name="error_importing_notes">Lỗi nhập ghi chú từ JSON!</string>
+
+    <string-array name="sort_by_list">
+        <item>Ngày (mới nhất trước)</item>
+        <item>Ngày (cũ nhất trước)</item>
+        <item>Tên (A đến Z)</item>
+        <item>Tên (Z đến A)</item>
+    </string-array>
+    <string-array name="theme_list">
+        <item>Hệ thống</item>
+        <item>Sáng</item>
+        <item>Tối</item>
+    </string-array>
+    <string-array name="font_type_list">
+        <item>Không chân</item>
+        <item>Có chân</item>
+        <item>Đơn cách</item>
+    </string-array>
+    <string-array name="font_size_list">
+        <item>Nhỏ nhất</item>
+        <item>Nhỏ</item>
+        <item>Bình thường</item>
+        <item>Lớn</item>
+        <item>Lớn nhất</item>
+    </string-array>
+    <string-array name="exported_filename_list">
+        <item>Dòng đầu tiên của văn bản</item>
+        <item>Dòng đầu tiên + dấu thời gian</item>
+        <item>Dấu thời gian + dòng đầu tiên</item>
+    </string-array>
+
+</resources>

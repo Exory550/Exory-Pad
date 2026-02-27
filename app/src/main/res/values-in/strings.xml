@@ -1,0 +1,97 @@
+<resources>
+
+    <string name="action_cancel">Batal</string>
+    <string name="action_close">Tutup</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_discard">Buang</string>
+    <string name="action_edit">Sunting</string>
+    <string name="action_export">Ekspor</string>
+    <string name="action_font_size">Ukuran huruf</string>
+    <string name="action_new">Catatan Baru</string>
+    <string name="action_save">Simpan</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="action_share">Bagikan</string>
+    <string name="action_sort_by">Urutkan catatan berdasarkan</string>
+    <string name="action_export_filename">Nama file ekspor</string>
+    <string name="app_name">Exorypad</string>
+    <string name="app_name_debug">Exorypad (Debug)</string>
+    <string name="cab_note_selected">%d catatan dipilih</string>
+    <string name="cab_notes_selected">%d catatan dipilih</string>
+    <string name="changes_discarded">Perubahan dibuang</string>
+    <string name="dialog_about_message">Exorypad: aplikasi catatan sederhana\n\n&#169; %d Exory550\nLogo aplikasi oleh Tobaloidee</string>
+    <string name="dialog_about_title">Tentang Exorypad</string>
+    <string name="dialog_are_you_sure">Anda yakin?</string>
+    <string name="dialog_delete_button_title">Hapus catatan</string>
+    <string name="dialog_delete_button_title_plural">Hapus catatan</string>
+    <string name="dialog_save_button_title">Simpan perubahan</string>
+    <string name="dialog_save_changes">Apakah Anda ingin menyimpan perubahan?</string>
+    <string name="draft_restored">Draf dipulihkan</string>
+    <string name="draft_saved">Draf disimpan</string>
+    <string name="double_tap">Tip: ketuk dua kali teks untuk beralih ke mode Sunting</string>
+    <string name="edit_text">Ketik untuk menambahkan teks</string>
+    <string name="empty_note">Harap masukkan teks!</string>
+    <string name="first_run">Selamat datang di Exorypad!\n\nUntuk membuat catatan, klik tombol Catatan Baru (tanda plus).</string>
+    <string name="first_view">Untuk menyunting catatan tersimpan, ketuk dua kali teks atau klik tombol Sunting (pensil).</string>
+    <string name="import_notes">Impor file teks</string>
+    <string name="loading_external_file">Gagal memuat konten eksternal (atau tipe konten tidak didukung)</string>
+    <string name="no_notes_found">Tidak ada catatan ditemukan</string>
+    <string name="note_deleted">Catatan dihapus</string>
+    <string name="note_exported_to">Catatan berhasil diekspor</string>
+    <string name="note_saved">Catatan disimpan</string>
+    <string name="notes_deleted">Catatan dihapus</string>
+    <string name="notes_exported_to">Catatan berhasil diekspor</string>
+    <string name="note_imported_successfully">Catatan berhasil diimpor</string>
+    <string name="notes_imported_successfully">Catatan berhasil diimpor</string>
+    <string name="pref_title_show_dialogs">Tanya sebelum menyimpan</string>
+    <string name="send_to">Bagikan catatan ke&#8230;</string>
+    <string name="pref_title_show_date">Tampilkan tanggal/waktu</string>
+    <string name="action_theme">Tema</string>
+    <string name="pref_title_direct_edit">Sunting catatan langsung</string>
+    <string name="pref_title_markdown">Dukungan Markdown/HTML</string>
+    <string name="action_print">Cetak</string>
+    <string name="action_start_selection">Pilih catatan</string>
+    <string name="action_select_all">Pilih semua</string>
+    <string name="no_notes_to_select">Tidak ada catatan untuk dipilih</string>
+    <string name="document">%1$s Dokumen</string>
+    <string name="no_notes_to_export">Tidak ada catatan dipilih untuk diekspor</string>
+    <string name="no_notes_to_delete">Tidak ada catatan dipilih untuk dihapus</string>
+    <string name="check_for_updates">Periksa Pembaruan</string>
+    <string name="rtl_layout">Tata letak kanan-ke-kiri</string>
+    <string name="pref_title_font_type">Jenis huruf</string>
+    <string name="action_search_notes">Cari catatan</string>
+    <string name="no_notes_to_search">Tidak ada catatan untuk dicari</string>
+    <string name="export_all_notes">Cadangkan semua catatan</string>
+    <string name="import_all_notes">Pulihkan dari cadangan</string>
+    <string name="error_exporting_notes">Kesalahan mengekspor catatan ke JSON!</string>
+    <string name="error_importing_notes">Kesalahan mengimpor catatan dari JSON!</string>
+
+    <string-array name="sort_by_list">
+        <item>Tanggal (terbaru dulu)</item>
+        <item>Tanggal (terlama dulu)</item>
+        <item>Nama (A ke Z)</item>
+        <item>Nama (Z ke A)</item>
+    </string-array>
+    <string-array name="theme_list">
+        <item>Sistem</item>
+        <item>Terang</item>
+        <item>Gelap</item>
+    </string-array>
+    <string-array name="font_type_list">
+        <item>Tanpa kait</item>
+        <item>Dengan kait</item>
+        <item>Monospace</item>
+    </string-array>
+    <string-array name="font_size_list">
+        <item>Terkecil</item>
+        <item>Kecil</item>
+        <item>Normal</item>
+        <item>Besar</item>
+        <item>Terbesar</item>
+    </string-array>
+    <string-array name="exported_filename_list">
+        <item>Baris pertama teks</item>
+        <item>Baris pertama + stempel waktu</item>
+        <item>Stempel waktu + baris pertama</item>
+    </string-array>
+
+</resources>

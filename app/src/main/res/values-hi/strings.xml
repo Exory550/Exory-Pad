@@ -1,0 +1,97 @@
+<resources>
+
+    <string name="action_cancel">रद्द करें</string>
+    <string name="action_close">बंद करें</string>
+    <string name="action_delete">हटाएं</string>
+    <string name="action_discard">छोड़ें</string>
+    <string name="action_edit">संपादित करें</string>
+    <string name="action_export">निर्यात करें</string>
+    <string name="action_font_size">फ़ॉन्ट आकार</string>
+    <string name="action_new">नया नोट</string>
+    <string name="action_save">सहेजें</string>
+    <string name="action_settings">सेटिंग्स</string>
+    <string name="action_share">साझा करें</string>
+    <string name="action_sort_by">नोट क्रमबद्ध करें</string>
+    <string name="action_export_filename">निर्यात फ़ाइल नाम</string>
+    <string name="app_name">Exorypad</string>
+    <string name="app_name_debug">Exorypad (डीबग)</string>
+    <string name="cab_note_selected">%d नोट चयनित</string>
+    <string name="cab_notes_selected">%d नोट चयनित</string>
+    <string name="changes_discarded">परिवर्तन छोड़ दिए गए</string>
+    <string name="dialog_about_message">Exorypad: एक सरल नोट लेने वाला ऐप\n\n&#169; %d Exory550\nऐप लोगो Tobaloidee द्वारा</string>
+    <string name="dialog_about_title">Exorypad के बारे में</string>
+    <string name="dialog_are_you_sure">क्या आप sure हैं?</string>
+    <string name="dialog_delete_button_title">नोट हटाएं</string>
+    <string name="dialog_delete_button_title_plural">नोट हटाएं</string>
+    <string name="dialog_save_button_title">परिवर्तन सहेजें</string>
+    <string name="dialog_save_changes">क्या आप अपने परिवर्तन सहेजना चाहते हैं?</string>
+    <string name="draft_restored">ड्राफ्ट पुनर्स्थापित किया गया</string>
+    <string name="draft_saved">ड्राफ्ट सहेजा गया</string>
+    <string name="double_tap">टिप: संपादन मोड पर स्विच करने के लिए टेक्स्ट पर डबल-टैप करें</string>
+    <string name="edit_text">टेक्स्ट जोड़ने के लिए टाइप करें</string>
+    <string name="empty_note">कृपया कुछ टेक्स्ट दर्ज करें!</string>
+    <string name="first_run">Exorypad में आपका स्वागत है!\n\nनया नोट बनाने के लिए, नया नोट बटन (प्लस चिह्न) क्लिक करें।</string>
+    <string name="first_view">सहेजे गए नोट को संपादित करने के लिए, टेक्स्ट पर डबल-टैप करें या संपादन बटन (पेंसिल) क्लिक करें।</string>
+    <string name="import_notes">टेक्स्ट फ़ाइलें आयात करें</string>
+    <string name="loading_external_file">बाहरी सामग्री लोड करने में विफल (या सामग्री प्रकार समर्थित नहीं)</string>
+    <string name="no_notes_found">कोई नोट नहीं मिला</string>
+    <string name="note_deleted">नोट हटा दिया गया</string>
+    <string name="note_exported_to">नोट सफलतापूर्वक निर्यात किया गया</string>
+    <string name="note_saved">नोट सहेजा गया</string>
+    <string name="notes_deleted">नोट हटा दिए गए</string>
+    <string name="notes_exported_to">नोट सफलतापूर्वक निर्यात किए गए</string>
+    <string name="note_imported_successfully">नोट सफलतापूर्वक आयात किया गया</string>
+    <string name="notes_imported_successfully">नोट सफलतापूर्वक आयात किए गए</string>
+    <string name="pref_title_show_dialogs">सहेजने से पहले पूछें</string>
+    <string name="send_to">नोट साझा करें&#8230;</string>
+    <string name="pref_title_show_date">दिनांक/समय दिखाएं</string>
+    <string name="action_theme">थीम</string>
+    <string name="pref_title_direct_edit">सीधे नोट संपादित करें</string>
+    <string name="pref_title_markdown">Markdown/HTML समर्थन</string>
+    <string name="action_print">प्रिंट करें</string>
+    <string name="action_start_selection">नोट चुनें</string>
+    <string name="action_select_all">सभी चुनें</string>
+    <string name="no_notes_to_select">चुनने के लिए कोई नोट नहीं</string>
+    <string name="document">%1$s दस्तावेज़</string>
+    <string name="no_notes_to_export">निर्यात करने के लिए कोई नोट चयनित नहीं</string>
+    <string name="no_notes_to_delete">हटाने के लिए कोई नोट चयनित नहीं</string>
+    <string name="check_for_updates">अपडेट देखें</string>
+    <string name="rtl_layout">दाएं-से-बाएं लेआउट</string>
+    <string name="pref_title_font_type">फ़ॉन्ट प्रकार</string>
+    <string name="action_search_notes">नोट खोजें</string>
+    <string name="no_notes_to_search">खोजने के लिए कोई नोट नहीं</string>
+    <string name="export_all_notes">सभी नोट बैकअप करें</string>
+    <string name="import_all_notes">बैकअप से पुनर्स्थापित करें</string>
+    <string name="error_exporting_notes">JSON में नोट निर्यात करने में त्रुटि!</string>
+    <string name="error_importing_notes">JSON से नोट आयात करने में त्रुटि!</string>
+
+    <string-array name="sort_by_list">
+        <item>दिनांक (नवीनतम पहले)</item>
+        <item>दिनांक (सबसे पुराना पहले)</item>
+        <item>नाम (A से Z)</item>
+        <item>नाम (Z से A)</item>
+    </string-array>
+    <string-array name="theme_list">
+        <item>सिस्टम</item>
+        <item>हल्का</item>
+        <item>गहरा</item>
+    </string-array>
+    <string-array name="font_type_list">
+        <item>बिना सेरिफ़</item>
+        <item>सेरिफ़</item>
+        <item>समान स्थान</item>
+    </string-array>
+    <string-array name="font_size_list">
+        <item>सबसे छोटा</item>
+        <item>छोटा</item>
+        <item>सामान्य</item>
+        <item>बड़ा</item>
+        <item>सबसे बड़ा</item>
+    </string-array>
+    <string-array name="exported_filename_list">
+        <item>टेक्स्ट की पहली पंक्ति</item>
+        <item>पहली पंक्ति + टाइमस्टैम्प</item>
+        <item>टाइमस्टैम्प + पहली पंक्ति</item>
+    </string-array>
+
+</resources>

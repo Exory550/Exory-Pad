@@ -1,0 +1,97 @@
+<resources>
+
+    <string name="action_cancel">ยกเลิก</string>
+    <string name="action_close">ปิด</string>
+    <string name="action_delete">ลบ</string>
+    <string name="action_discard">ทิ้ง</string>
+    <string name="action_edit">แก้ไข</string>
+    <string name="action_export">ส่งออก</string>
+    <string name="action_font_size">ขนาดตัวอักษร</string>
+    <string name="action_new">โน้ตใหม่</string>
+    <string name="action_save">บันทึก</string>
+    <string name="action_settings">ตั้งค่า</string>
+    <string name="action_share">แชร์</string>
+    <string name="action_sort_by">เรียงโน้ตตาม</string>
+    <string name="action_export_filename">ชื่อไฟล์ที่ส่งออก</string>
+    <string name="app_name">Exorypad</string>
+    <string name="app_name_debug">Exorypad (Debug)</string>
+    <string name="cab_note_selected">เลือก %d โน้ต</string>
+    <string name="cab_notes_selected">เลือก %d โน้ต</string>
+    <string name="changes_discarded">การเปลี่ยนแปลงถูกทิ้ง</string>
+    <string name="dialog_about_message">Exorypad: แอปจดโน้ตง่ายๆ\n\n&#169; %d Exory550\nโลโก้แอปโดย Tobaloidee</string>
+    <string name="dialog_about_title">เกี่ยวกับ Exorypad</string>
+    <string name="dialog_are_you_sure">คุณแน่ใจหรือไม่?</string>
+    <string name="dialog_delete_button_title">ลบโน้ต</string>
+    <string name="dialog_delete_button_title_plural">ลบโน้ต</string>
+    <string name="dialog_save_button_title">บันทึกการเปลี่ยนแปลง</string>
+    <string name="dialog_save_changes">คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่?</string>
+    <string name="draft_restored">คืนค่าร่างแล้ว</string>
+    <string name="draft_saved">บันทึกร่างแล้ว</string>
+    <string name="double_tap">เคล็ดลับ: แตะสองครั้งที่ข้อความเพื่อสลับไปโหมดแก้ไข</string>
+    <string name="edit_text">พิมพ์เพื่อเพิ่มข้อความ</string>
+    <string name="empty_note">กรุณาใส่ข้อความ!</string>
+    <string name="first_run">ยินดีต้อนรับสู่ Exorypad!\n\nในการสร้างโน้ตใหม่ คลิกปุ่มโน้ตใหม่ (เครื่องหมายบวก)</string>
+    <string name="first_view">ในการแก้ไขโน้ตที่บันทึกไว้ แตะสองครั้งที่ข้อความหรือคลิกปุ่มแก้ไข (ดินสอ)</string>
+    <string name="import_notes">นำเข้าไฟล์ข้อความ</string>
+    <string name="loading_external_file">ไม่สามารถโหลดเนื้อหาภายนอก (หรือประเภทเนื้อหาไม่รองรับ)</string>
+    <string name="no_notes_found">ไม่พบโน้ต</string>
+    <string name="note_deleted">ลบโน้ตแล้ว</string>
+    <string name="note_exported_to">ส่งออกโน้ตสำเร็จ</string>
+    <string name="note_saved">บันทึกโน้ตแล้ว</string>
+    <string name="notes_deleted">ลบโน้ตแล้ว</string>
+    <string name="notes_exported_to">ส่งออกโน้ตสำเร็จ</string>
+    <string name="note_imported_successfully">นำเข้าโน้ตสำเร็จ</string>
+    <string name="notes_imported_successfully">นำเข้าโน้ตสำเร็จ</string>
+    <string name="pref_title_show_dialogs">ถามก่อนบันทึก</string>
+    <string name="send_to">แชร์โน้ตไปยัง&#8230;</string>
+    <string name="pref_title_show_date">แสดงวันที่/เวลา</string>
+    <string name="action_theme">ธีม</string>
+    <string name="pref_title_direct_edit">แก้ไขโน้ตโดยตรง</string>
+    <string name="pref_title_markdown">รองรับ Markdown/HTML</string>
+    <string name="action_print">พิมพ์</string>
+    <string name="action_start_selection">เลือกโน้ต</string>
+    <string name="action_select_all">เลือกทั้งหมด</string>
+    <string name="no_notes_to_select">ไม่มีโน้ตให้เลือก</string>
+    <string name="document">%1$s เอกสาร</string>
+    <string name="no_notes_to_export">ไม่ได้เลือกโน้ตที่จะส่งออก</string>
+    <string name="no_notes_to_delete">ไม่ได้เลือกโน้ตที่จะลบ</string>
+    <string name="check_for_updates">ตรวจสอบอัปเดต</string>
+    <string name="rtl_layout">เค้าโครงขวาไปซ้าย</string>
+    <string name="pref_title_font_type">ประเภทแบบอักษร</string>
+    <string name="action_search_notes">ค้นหาโน้ต</string>
+    <string name="no_notes_to_search">ไม่มีโน้ตให้ค้นหา</string>
+    <string name="export_all_notes">สำรองข้อมูลโน้ตทั้งหมด</string>
+    <string name="import_all_notes">กู้คืนจากข้อมูลสำรอง</string>
+    <string name="error_exporting_notes">ข้อผิดพลาดในการส่งออกโน้ตเป็น JSON!</string>
+    <string name="error_importing_notes">ข้อผิดพลาดในการนำเข้าโน้ตจาก JSON!</string>
+
+    <string-array name="sort_by_list">
+        <item>วันที่ (ใหม่สุดก่อน)</item>
+        <item>วันที่ (เก่าสุดก่อน)</item>
+        <item>ชื่อ (ก ถึง ฮ)</item>
+        <item>ชื่อ (ฮ ถึง ก)</item>
+    </string-array>
+    <string-array name="theme_list">
+        <item>ระบบ</item>
+        <item>สว่าง</item>
+        <item>มืด</item>
+    </string-array>
+    <string-array name="font_type_list">
+        <item>ไม่มีหัว</item>
+        <item>มีหัว</item>
+        <item>เว้นวรรคเดียว</item>
+    </string-array>
+    <string-array name="font_size_list">
+        <item>เล็กที่สุด</item>
+        <item>เล็ก</item>
+        <item>ปกติ</item>
+        <item>ใหญ่</item>
+        <item>ใหญ่ที่สุด</item>
+    </string-array>
+    <string-array name="exported_filename_list">
+        <item>บรรทัดแรกของข้อความ</item>
+        <item>บรรทัดแรก + ประทับเวลา</item>
+        <item>ประทับเวลา + บรรทัดแรก</item>
+    </string-array>
+
+</resources>

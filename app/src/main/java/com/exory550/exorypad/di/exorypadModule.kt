@@ -1,7 +1,7 @@
 package com.exory550.exorypad.di
 
 import android.content.Context
-import com.exory550.exorypad.Database
+import com.exory550.exorypad.model.Database
 import com.exory550.exorypad.data.ExorypadRepository
 import com.exory550.exorypad.model.NoteMetadata
 import com.exory550.exorypad.usecase.artVandelayModule

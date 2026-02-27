@@ -6,7 +6,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import com.exory550.exorypad.Database
+import com.exory550.exorypad.model.Database
 import com.exory550.exorypad.model.CrossRef
 import com.exory550.exorypad.model.NoteContents
 import com.exory550.exorypad.model.NoteMetadata

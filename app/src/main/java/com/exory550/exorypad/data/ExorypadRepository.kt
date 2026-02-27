@@ -1,6 +1,6 @@
 package com.exory550.exorypad.data
 
-import com.exory550.exorypad.Database
+import com.exory550.exorypad.model.Database
 import com.exory550.exorypad.model.CrossRef
 import com.exory550.exorypad.model.Defaults
 import com.exory550.exorypad.model.Note

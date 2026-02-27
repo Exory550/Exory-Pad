@@ -22,6 +22,7 @@ import de.schnettler.datastore.compose.material.model.Preference.PreferenceItem.
 import de.schnettler.datastore.compose.material.model.Preference.PreferenceItem.SwitchPreference
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SettingsDialog(onDismiss: () -> Unit) {
     Dialog(onDismissRequest = onDismiss) {

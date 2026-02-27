@@ -14,7 +14,7 @@ import com.exory550.exorypad.viewmodel.viewModelModule
 import com.github.k1rakishou.fsaf.FileChooser
 import com.github.k1rakishou.fsaf.FileManager
 import app.cash.sqldelight.ColumnAdapter
-import app.cash.sqldelight.android.AndroidSqliteDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import de.schnettler.datastore.manager.DataStoreManager
 import java.util.Date
 import org.koin.android.ext.koin.androidContext

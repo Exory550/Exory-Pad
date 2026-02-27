@@ -678,7 +678,7 @@ private fun EmptyDetails() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.notepad_logo),
+            painter = painterResource(id = R.drawable.exorypad_logo),
             contentDescription = null,
             modifier = Modifier
                 .height(512.dp)

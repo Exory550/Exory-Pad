@@ -1,9 +1,9 @@
-import java.util.Date;
+
 
 CREATE TABLE IF NOT EXISTS NoteMetadata(
     metadataId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     title TEXT NOT NULL,
-    date INTEGER AS Date NOT NULL,
+    date INTEGER AS java.util.Date NOT NULL,
     hasDraft INTEGER AS kotlin.Boolean NOT NULL
 );
 

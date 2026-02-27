@@ -26,7 +26,7 @@ materialIcons = "1.7.8"
 linkifyText = "0a45dbcf9b"
 okio = "3.16.0"
 richtext = "0.16.0"
-sqldelight = "1.5.5"
+sqldelight = "2.0.2"
 versionsPlugin = "0.42.0"
 kotlinjson = "1.9.0"
 
@@ -34,7 +34,7 @@ kotlinjson = "1.9.0"
 
 gradle-android = { module = "com.android.tools.build:gradle", version.ref = "android-gradlePlugin" }
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-gradle-sqldelight = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "sqldelight" }
+gradle-sqldelight = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "sqldelight" }
 
 androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -53,7 +53,7 @@ compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose",
 
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-coroutines-sqldelight = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+coroutines-sqldelight = { module = "app.cash.sqldelight:coroutines-extensions-jvm", version.ref = "sqldelight" }
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -66,7 +66,7 @@ composePreferences = { module = "com.github.NoelChew.ComposePreferences:preferen
 fsaf = { module = "com.github.K1rakishou:Fuck-Storage-Access-Framework", version.ref = "fsaf" }
 linkifyText = { module = "com.github.firefinchdev:linkify-text", version.ref = "linkifyText" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
-sqldelight = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 kotlinjson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinjson" }
 

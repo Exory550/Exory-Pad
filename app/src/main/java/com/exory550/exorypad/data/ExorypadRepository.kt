@@ -7,8 +7,8 @@ import com.exory550.exorypad.model.Note
 import com.exory550.exorypad.model.NoteContents
 import com.exory550.exorypad.model.NoteMetadata
 import com.exory550.exorypad.model.SortOrder
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
+import app.cash.sqldelight.runtime.coroutines.asFlow
+import app.cash.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.text.Collator

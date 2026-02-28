@@ -31,7 +31,7 @@ android {
         resourceConfigurations.addAll(
             listOf(
                 "en", "fr", "ko", "nl", "pl", "zh-rCN", "it", "de", "ru", "cs",
-                "pt-rBR", "no", "zh-rTW", "ar", "tr", "el", "bn", "sw", "es", "ja"
+                "pt-rBR", "no", "zh-rTW", "ar", "tr", "el", "bn", "sw", "es", "ja", "in", "ms", "th", "vi", "hi", "fil"
             )
         )
 

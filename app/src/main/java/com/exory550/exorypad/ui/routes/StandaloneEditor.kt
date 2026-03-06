@@ -58,8 +58,11 @@ private fun StandaloneEditor(
     val showDialogs by vm.prefs.showDialogs.collectAsState()
     val rtlLayout by vm.prefs.rtlLayout.collectAsState()
 
-    var text: String by rememberSaveable { mutableStateOf(initialText) }
-    var title: String by rememberSaveable { mutableStateOf("") }
+    val initialTitle = if (initialText.contains("\n")) initialText.substringBefore("\n") else initialText
+    val initialBody = if (initialText.contains("\n")) initialText.substringAfter("\n").trimStart() else ""
+
+    var title: String by rememberSaveable { mutableStateOf(initialTitle) }
+    var text: String by rememberSaveable { mutableStateOf(initialBody) }
     var showSaveDialog by rememberSaveable { mutableStateOf(false) }
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
     var showMenu by rememberSaveable { mutableStateOf(false) }
@@ -71,25 +74,23 @@ private fun StandaloneEditor(
     )
 
     val onSave = {
-        val noteContent = if (title.isNotBlank()) "$title\n\n$text" else text
+        val noteContent = if (title.isNotBlank() && text.isNotBlank()) "$title\n$text"
+                         else if (title.isNotBlank()) title
+                         else text
         vm.saveNote(-1L, noteContent) { onExit() }
     }
 
     val onDismiss = { showMenu = false }
     val onMoreClick = { showMenu = true }
     val onSaveClick: () -> Unit = {
-        if (showDialogs) {
-            showSaveDialog = true
-        } else {
-            onSave()
-        }
+        if (showDialogs) showSaveDialog = true else onSave()
     }
     val onDeleteClick: () -> Unit = {
         showDeleteDialog = true
     }
     val onShareClick: () -> Unit = {
         onDismiss()
-        vm.shareNote(text)
+        vm.shareNote(if (title.isNotBlank()) "$title\n$text" else text)
     }
     val onBack: () -> Unit = {
         if (text.isNotEmpty() || title.isNotEmpty()) onSaveClick() else onExit()

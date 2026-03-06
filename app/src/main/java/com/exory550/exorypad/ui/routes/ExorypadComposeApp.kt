@@ -548,6 +548,7 @@ private fun ExorypadComposeApp(
                         rtlLayout = rtlLayout,
                         onTextChanged = vm::setText,
                         onTitleChanged = { editTitle = it },
+                        date = note.date,
                         offset = state.offset
                     )
                 }

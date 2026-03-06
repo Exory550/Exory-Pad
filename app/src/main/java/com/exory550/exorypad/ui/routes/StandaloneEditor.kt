@@ -24,6 +24,7 @@ import com.exory550.exorypad.ui.components.StandaloneEditorMenu
 import com.exory550.exorypad.ui.content.EditNoteContent
 import com.exory550.exorypad.viewmodel.ExorypadViewModel
 import org.koin.androidx.compose.koinViewModel
+import java.util.Date
 
 @Composable
 fun StandaloneEditorRoute(
@@ -152,6 +153,7 @@ private fun StandaloneEditor(
                 baseTextStyle = textStyle,
                 isLightTheme = isLightTheme,
                 rtlLayout = rtlLayout,
+                date = Date(),
                 offset = null,
                 onTextChanged = { text = it },
                 onTitleChanged = { title = it }

@@ -197,7 +197,7 @@ private fun ExorypadComposeApp(
         navState = if (directEdit || !isSaveButton) Empty else View(id)
     }
     val onSave: () -> Unit = {
-        vm.saveNote(note.id, fullText(), onSaveComplete)
+        vm.saveNote(note.id, fullText(), onSuccess = onSaveComplete)
     }
     val onPrint: () -> Unit = {
         isPrinting = true

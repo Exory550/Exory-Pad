@@ -221,10 +221,12 @@ class ExorypadViewModel(
     fun saveNote(
         id: Long,
         text: String,
+        label: String = "",
+        reminderTime: java.util.Date? = null,
         onSuccess: (Long) -> Unit = {}
     ) = viewModelScope.launch(Dispatchers.IO) {
         text.checkLength {
-            repo.saveNote(id, text) {
+            repo.saveNote(id, text, label = label, reminderTime = reminderTime) {
                 toaster.toast(R.string.note_saved)
                 onSuccess(it)
             }

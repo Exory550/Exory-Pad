@@ -33,9 +33,7 @@ private fun EditNote(note: Note) {
                 }
             )
         },
-        content = {
-            EditNoteContent(note.text)
-        }
+        content = { EditNoteContent(note.text) }
     )
 }
 
@@ -48,7 +46,11 @@ fun EditNotePreview() = MaterialTheme {
                 metadataId = -1,
                 title = "Title",
                 date = Date(),
-                hasDraft = false
+                hasDraft = false,
+                label = "",
+                imagePaths = "",
+                audioPath = "",
+                reminderTime = null
             ),
             contents = NoteContents(
                 contentsId = -1,

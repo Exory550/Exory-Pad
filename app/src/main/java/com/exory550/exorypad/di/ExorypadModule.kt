@@ -39,10 +39,13 @@ val exorypadModule = module {
 
 private fun provideDatabase(context: Context) = Database(
     driver = AndroidSqliteDriver(Database.Schema, context, "exorypad.db"),
-    NoteMetadataAdapter = NoteMetadata.Adapter(dateAdapter = DateAdapter)
+    NoteMetadataAdapter = NoteMetadata.Adapter(
+        dateAdapter = DateAdapter,
+        reminderTimeAdapter = DateAdapter
+    )
 )
 
-object DateAdapter: ColumnAdapter<Date, Long> {
+object DateAdapter : ColumnAdapter<Date, Long> {
     override fun decode(databaseValue: Long) = Date(databaseValue)
     override fun encode(value: Date) = value.time
 }

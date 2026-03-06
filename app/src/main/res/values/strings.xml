@@ -95,4 +95,13 @@
     </string-array>
 
     <string name="hint_title">Judul catatan</string>
+    <string name="action_label">Label</string>
+    <string name="action_add_image">Tambah gambar</string>
+    <string name="action_record_audio">Rekam audio</string>
+    <string name="action_set_reminder">Atur pengingat</string>
+    <string name="reminder_channel_name">Pengingat Catatan</string>
+    <string name="reminder_notification_title">Pengingat</string>
+    <string name="label_hint">Masukkan label</string>
+    <string name="reminder_set">Pengingat diatur</string>
+    <string name="reminder_cancelled">Pengingat dibatalkan</string>
 </resources>

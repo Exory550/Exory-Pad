@@ -46,13 +46,17 @@ fun ViewNotePreview() = MaterialTheme {
                 metadataId = -1,
                 title = "Title",
                 date = Date(),
-                hasDraft = false
+                hasDraft = false,
+                label = "",
+                imagePaths = "",
+                audioPath = "",
+                reminderTime = null
             ),
             contents = NoteContents(
                 contentsId = -1,
                 text = "This is some text",
                 draftText = null
             )
-        ),
+        )
     )
 }

@@ -21,14 +21,10 @@ private fun NoteList(notes: List<NoteMetadata>) {
             TopAppBar(
                 title = { AppBarText(stringResource(id = R.string.app_name)) },
                 backgroundColor = colorResource(id = R.color.primary),
-                actions = {
-                    MoreButton()
-                }
+                actions = { MoreButton() }
             )
         },
-        content = {
-            NoteListContent(notes)
-        }
+        content = { NoteListContent(notes) }
     )
 }
 
@@ -41,13 +37,21 @@ fun NoteListPreview() = MaterialTheme {
                 metadataId = -1,
                 title = "Test Note 1",
                 date = Date(),
-                hasDraft = false
+                hasDraft = false,
+                label = "",
+                imagePaths = "",
+                audioPath = "",
+                reminderTime = null
             ),
             NoteMetadata(
                 metadataId = -1,
                 title = "Test Note 2",
                 date = Date(),
-                hasDraft = false
+                hasDraft = false,
+                label = "",
+                imagePaths = "",
+                audioPath = "",
+                reminderTime = null
             )
         )
     )

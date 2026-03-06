@@ -29,7 +29,7 @@ interface DataMigrator {
 private class DataMigratorImpl(
     private val context: Context,
     private val database: Database
-): DataMigrator {
+) : DataMigrator {
     private val job = Job()
 
     private val Context.dataStore by preferencesDataStore(
@@ -61,7 +61,11 @@ private class DataMigratorImpl(
                         metadataId = -1,
                         title = text.substringBefore("\n"),
                         date = Date(filename.toLong()),
-                        hasDraft = hasDraft
+                        hasDraft = hasDraft,
+                        label = "",
+                        imagePaths = "",
+                        audioPath = "",
+                        reminderTime = null
                     )
 
                     val contents = NoteContents(

@@ -95,6 +95,7 @@
     </string-array>
 
     <string name="hint_title">Judul catatan</string>
+    <string name="hint_note">Catatan</string>
     <string name="action_label">Label</string>
     <string name="action_add_image">Tambah gambar</string>
     <string name="action_record_audio">Rekam audio</string>

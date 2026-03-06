@@ -153,8 +153,8 @@ private fun StandaloneEditor(
                 baseTextStyle = textStyle,
                 isLightTheme = isLightTheme,
                 rtlLayout = rtlLayout,
-                date = Date(),
                 offset = null,
+                date = Date(),
                 onTextChanged = { text = it },
                 onTitleChanged = { title = it }
             )

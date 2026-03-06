@@ -546,9 +546,9 @@ private fun ExorypadComposeApp(
                         isPrinting = isPrinting,
                         waitForAnimation = note.id == -1L || directEdit,
                         rtlLayout = rtlLayout,
+                        date = note.date,
                         onTextChanged = vm::setText,
                         onTitleChanged = { editTitle = it },
-                        date = note.date,
                         offset = state.offset
                     )
                 }

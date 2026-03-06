@@ -86,7 +86,6 @@ fun ExorypadComposeAppRoute(
 ) {
     val vm: ExorypadViewModel = koinViewModel()
     val configuration = LocalConfiguration.current
-
     val isLightTheme by vm.prefs.isLightTheme.collectAsState()
     val backgroundColorRes by vm.prefs.backgroundColorRes.collectAsState()
     val rtlLayout by vm.prefs.rtlLayout.collectAsState()
@@ -156,6 +155,7 @@ private fun ExorypadComposeApp(
     var showFirstRunDialog by rememberSaveable { mutableStateOf(false) }
     var showFirstViewDialog by rememberSaveable { mutableStateOf(false) }
     var showMenu by rememberSaveable { mutableStateOf(false) }
+    var editTitle by rememberSaveable { mutableStateOf("") }
 
     val printController = rememberPrintableController()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -175,18 +175,21 @@ private fun ExorypadComposeApp(
         stringResource(id = R.string.app_name)
     )
 
-    var title = ""
+    var titleBar = ""
     var backButton: @Composable (() -> Unit)? = null
     var actions: @Composable RowScope.() -> Unit = {}
     val content: @Composable BoxScope.() -> Unit
-
     val (searchTerm, onSearchTermChanged) = rememberSaveable { mutableStateOf("") }
-    
+
+    val fullText: () -> String = {
+        if (editTitle.isNotBlank()) "$editTitle\n$text" else text
+    }
+
     val updateNavState: (id: Long) -> Unit = { id ->
         navState = if (directEdit || !isSaveButton) Empty else View(id)
     }
     val onSave: () -> Unit = {
-        vm.saveNote(note.id, text, onSaveComplete)
+        vm.saveNote(note.id, fullText(), onSaveComplete)
     }
     val onPrint: () -> Unit = {
         isPrinting = true
@@ -201,9 +204,8 @@ private fun ExorypadComposeApp(
     ) -> Unit = { fromSaveButton, onComplete ->
         isSaveButton = fromSaveButton
         onSaveComplete = onComplete
-
         when {
-            text.isNotEmpty() && text == note.text -> onComplete(note.id)
+            fullText().isNotEmpty() && fullText() == note.text -> onComplete(note.id)
             showDialogs -> showSaveDialog = true
             else -> onSave()
         }
@@ -221,9 +223,8 @@ private fun ExorypadComposeApp(
     }
     val onPrintClick: () -> Unit = {
         onDismiss()
-
         vm.showToastIf(text.isEmpty(), R.string.empty_note) {
-            when(navState) {
+            when (navState) {
                 is Edit -> vm.saveDraft { onPrint() }
                 else -> onPrint()
             }
@@ -240,18 +241,16 @@ private fun ExorypadComposeApp(
                 vm.setAllNotesAsFound(notes)
                 onSearchTermChanged("")
             }
-            navState is Edit && text.isNotEmpty() -> {
+            navState is Edit && fullText().isNotEmpty() -> {
                 onSaveClick(false, updateNavState)
             }
             else -> navState = Empty
         }
     }
 
-    if(showAboutDialog) {
+    if (showAboutDialog) {
         AboutDialog(
-            onDismiss = {
-                showAboutDialog = false
-            },
+            onDismiss = { showAboutDialog = false },
             checkForUpdates = {
                 showAboutDialog = false
                 vm.checkForUpdates()
@@ -259,48 +258,35 @@ private fun ExorypadComposeApp(
         )
     }
 
-    if(showSettingsDialog) {
-        SettingsDialog(
-            onDismiss = {
-                showSettingsDialog = false
-            }
-        )
+    if (showSettingsDialog) {
+        SettingsDialog(onDismiss = { showSettingsDialog = false })
     }
 
-    if(showDeleteDialog) {
+    if (showDeleteDialog) {
         DeleteDialog(
             onConfirm = {
                 showDeleteDialog = false
-                vm.deleteNote(id = note.id) {
-                    navState = Empty
-                }
+                vm.deleteNote(id = note.id) { navState = Empty }
             },
-            onDismiss = {
-                showDeleteDialog = false
-            }
+            onDismiss = { showDeleteDialog = false }
         )
     }
 
-    if(showMultiDeleteDialog) {
+    if (showMultiDeleteDialog) {
         DeleteDialog(
             isMultiple = selectedNotes.size > 1,
             onConfirm = {
                 showMultiDeleteDialog = false
-
                 val currentNoteDeleted = selectedNotes.getOrDefault(note.id, false)
                 vm.deleteSelectedNotes {
-                    if (currentNoteDeleted) {
-                        navState = Empty
-                    }
+                    if (currentNoteDeleted) navState = Empty
                 }
             },
-            onDismiss = {
-                showMultiDeleteDialog = false
-            }
+            onDismiss = { showMultiDeleteDialog = false }
         )
     }
 
-    if(showSaveDialog) {
+    if (showSaveDialog) {
         SaveDialog(
             onConfirm = {
                 showSaveDialog = false
@@ -311,20 +297,18 @@ private fun ExorypadComposeApp(
                 vm.showToast(R.string.changes_discarded)
                 onSaveComplete(note.id)
             },
-            onDismiss = {
-                showSaveDialog = false
-            }
+            onDismiss = { showSaveDialog = false }
         )
     }
 
-    if(showFirstRunDialog) {
+    if (showFirstRunDialog) {
         FirstRunDialog {
             showFirstRunDialog = false
             vm.firstRunComplete()
         }
     }
 
-    if(showFirstViewDialog) {
+    if (showFirstViewDialog) {
         FirstViewDialog {
             showFirstViewDialog = false
             vm.firstViewComplete()
@@ -381,39 +365,33 @@ private fun ExorypadComposeApp(
         val updateNavStateNoteList = {
             navState = if (directEdit) Edit(id) else View(id)
         }
-
         val handleMultiPaneNav = {
             when {
                 id != note.id -> vm.clearNote()
                 directEdit -> vm.getNote(id)
             }
-
             updateNavStateNoteList()
         }
-
         when {
             multiSelectEnabled -> vm.toggleSelectedNote(id)
             isMultiPane -> {
-                if (navState is Edit && text.isNotEmpty()) {
+                if (navState is Edit && fullText().isNotEmpty()) {
                     onSaveClick(false) { handleMultiPaneNav() }
                 } else {
                     handleMultiPaneNav()
                 }
             }
-
             else -> updateNavStateNoteList()
         }
     }
 
-    when(val state = navState) {
+    when (val state = navState) {
 
         Empty -> {
             LaunchedEffect(Unit) {
                 vm.clearNote()
-
-                if (!firstRunComplete) {
-                    showFirstRunDialog = true
-                }
+                editTitle = ""
+                if (!firstRunComplete) showFirstRunDialog = true
             }
 
             vm.registerKeyboardShortcuts(
@@ -424,7 +402,7 @@ private fun ExorypadComposeApp(
             )
 
             if (!multiSelectEnabled) {
-                title = stringResource(id = R.string.app_name)
+                titleBar = stringResource(id = R.string.app_name)
                 backButton = null
                 actions = {
                     SearchNotesButton {
@@ -438,7 +416,6 @@ private fun ExorypadComposeApp(
                             multiSelectEnabled = true
                         }
                     }
-
                     NoteListMenu(
                         showMenu = showMenu,
                         onDismiss = onDismiss,
@@ -472,21 +449,14 @@ private fun ExorypadComposeApp(
             }
 
             content = {
-                if (isMultiPane) {
-                    EmptyDetails()
-                } else {
-                    NoteListContentShared()
-                }
+                if (isMultiPane) EmptyDetails() else NoteListContentShared()
             }
         }
 
         is View -> {
             LaunchedEffect(state.id) {
                 vm.getNote(state.id)
-
-                if (!firstViewComplete) {
-                    showFirstViewDialog = true
-                }
+                if (!firstViewComplete) showFirstViewDialog = true
             }
 
             vm.registerKeyboardShortcuts(
@@ -496,7 +466,7 @@ private fun ExorypadComposeApp(
             )
 
             if (!multiSelectEnabled) {
-                title = note.title
+                titleBar = note.title
                 backButton = { BackButton(onBack) }
                 actions = {
                     EditButton { navState = Edit(state.id) }
@@ -512,9 +482,7 @@ private fun ExorypadComposeApp(
                 }
             }
 
-            if (searchNotesEnabled) {
-                searchNotesEnabled = false
-            }
+            if (searchNotesEnabled) searchNotesEnabled = false
 
             content = {
                 Printable(printController) {
@@ -534,18 +502,23 @@ private fun ExorypadComposeApp(
         is Edit -> {
             LaunchedEffect(state.id) {
                 vm.getNote(state.id)
+                editTitle = if (note.text.contains("\n")) note.text.substringBefore("\n") else if (note.text.isNotEmpty()) note.text else ""
+            }
+
+            LaunchedEffect(note.id) {
+                editTitle = if (note.text.contains("\n")) note.text.substringBefore("\n") else if (note.text.isNotEmpty()) note.text else ""
+                val body = if (note.text.contains("\n")) note.text.substringAfter("\n").trimStart() else ""
+                vm.setText(body)
             }
 
             vm.registerKeyboardShortcuts(
-                KeyEvent.KEYCODE_S to { vm.saveNote(note.id, text, vm::getNote) },
+                KeyEvent.KEYCODE_S to { vm.saveNote(note.id, fullText(), vm::getNote) },
                 KeyEvent.KEYCODE_D to onDeleteClick,
-                KeyEvent.KEYCODE_H to { onShareClick(text) }
+                KeyEvent.KEYCODE_H to { onShareClick(fullText()) }
             )
 
             if (!multiSelectEnabled) {
-                title = note.title.ifEmpty {
-                    stringResource(id = R.string.action_new)
-                }
+                titleBar = editTitle.ifEmpty { stringResource(id = R.string.action_new) }
                 backButton = { BackButton(onBack) }
                 actions = {
                     SaveButton { onSaveClick(true, updateNavState) }
@@ -554,27 +527,27 @@ private fun ExorypadComposeApp(
                         showMenu = showMenu,
                         onDismiss = onDismiss,
                         onMoreClick = onMoreClick,
-                        onShareClick = { onShareClick(text) },
-                        onExportClick = { onExportClick(note.metadata.copy(title = title), text) },
+                        onShareClick = { onShareClick(fullText()) },
+                        onExportClick = { onExportClick(note.metadata.copy(title = editTitle), fullText()) },
                         onPrintClick = onPrintClick
                     )
                 }
             }
 
-            if (searchNotesEnabled) {
-                searchNotesEnabled = false
-            }
+            if (searchNotesEnabled) searchNotesEnabled = false
 
             content = {
                 Printable(printController) {
                     EditNoteContent(
                         text = text,
+                        title = editTitle,
                         baseTextStyle = textStyle,
                         isLightTheme = isLightTheme,
                         isPrinting = isPrinting,
                         waitForAnimation = note.id == -1L || directEdit,
                         rtlLayout = rtlLayout,
                         onTextChanged = vm::setText,
+                        onTitleChanged = { editTitle = it },
                         offset = state.offset
                     )
                 }
@@ -583,12 +556,8 @@ private fun ExorypadComposeApp(
     }
 
     if (multiSelectEnabled) {
-        title = stringResource(
-            id = if (selectedNotes.size == 1) {
-                R.string.cab_note_selected
-            } else {
-                R.string.cab_notes_selected
-            },
+        titleBar = stringResource(
+            id = if (selectedNotes.size == 1) R.string.cab_note_selected else R.string.cab_notes_selected,
             selectedNotes.size
         )
         backButton = { BackButton(onBack) }
@@ -600,17 +569,13 @@ private fun ExorypadComposeApp(
                 }
             }
             DeleteButton {
-                vm.showToastIf(
-                    selectedNotes.isEmpty(),
-                    R.string.no_notes_to_delete,
-                    onMultiDeleteClick
-                )
+                vm.showToastIf(selectedNotes.isEmpty(), R.string.no_notes_to_delete, onMultiDeleteClick)
             }
         }
     }
 
     if (searchNotesEnabled) {
-        title = ""
+        titleBar = ""
         backButton = { BackButton(onBack) }
         actions = { SearchTextField(searchTerm, onSearchTermChanged) }
         vm.setSomeNotesAsNotFound(notes, searchTerm)
@@ -621,7 +586,7 @@ private fun ExorypadComposeApp(
         topBar = {
             TopAppBar(
                 navigationIcon = backButton,
-                title = { AppBarText(title) },
+                title = { AppBarText(titleBar) },
                 backgroundColor = colorResource(id = R.color.primary),
                 actions = actions
             )
@@ -646,22 +611,11 @@ private fun ExorypadComposeApp(
             }
         },
         content = {
-            if(isMultiPane) {
+            if (isMultiPane) {
                 Row {
-                    Box(modifier = Modifier.weight(1f)) {
-                        NoteListContentShared()
-                    }
-
-                    Divider(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .width(1.dp)
-                    )
-
-                    Box(
-                        modifier = Modifier.weight(2f),
-                        content = content
-                    )
+                    Box(modifier = Modifier.weight(1f)) { NoteListContentShared() }
+                    Divider(modifier = Modifier.fillMaxHeight().width(1.dp))
+                    Box(modifier = Modifier.weight(2f), content = content)
                 }
             } else {
                 Box(content = content)

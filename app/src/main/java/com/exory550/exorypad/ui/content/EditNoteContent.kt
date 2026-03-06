@@ -1,6 +1,8 @@
 package com.exory550.exorypad.ui.content
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
@@ -12,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -23,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +45,7 @@ private fun String.toTextFieldState() = TextFieldState(
 @Composable
 fun EditNoteContent(
     text: String,
+    title: String = "",
     baseTextStyle: TextStyle = TextStyle(),
     isLightTheme: Boolean = true,
     isPrinting: Boolean = false,
@@ -48,14 +53,22 @@ fun EditNoteContent(
     rtlLayout: Boolean = false,
     offset: Offset? = null,
     onTextChanged: (String) -> Unit = {},
+    onTitleChanged: (String) -> Unit = {},
 ) {
     val textStyle = if (isPrinting) {
         baseTextStyle.copy(color = Color.Black)
     } else baseTextStyle
 
+    val titleStyle = textStyle.copy(
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold
+    )
+
+    val hintColor = if (isLightTheme) Color.Gray else Color.DarkGray
+
     val focusRequester = remember { FocusRequester() }
     var value by remember { mutableStateOf(text.toTextFieldState()) }
-
+    var titleValue by rememberSaveable { mutableStateOf(title) }
 
     LaunchedEffect(text) {
         if (text != value.text) {
@@ -73,41 +86,64 @@ fun EditNoteContent(
 
     val layoutResult = remember { mutableStateOf<TextLayoutResult?>(null) }
 
-    RtlTextWrapper(text, rtlLayout) {
-        BasicTextField(
-            state = value,
-            outputTransformation = OutputTransformation { onTextChanged(value.text.toString()) },
-            textStyle = textStyle,
-            cursorBrush = brush,
-            keyboardOptions = KeyboardOptions(
-                capitalization = KeyboardCapitalization.Sentences
-            ),
-            onTextLayout = {
-                layoutResult.value = it()
-            },
-            modifier = Modifier
-                .padding(
-                    horizontal = 16.dp,
-                    vertical = 12.dp
-                )
-                .fillMaxSize()
-                .focusRequester(focusRequester)
-        )
-    }
+    Column(modifier = Modifier.fillMaxSize()) {
+        RtlTextWrapper(titleValue, rtlLayout) {
+            BasicTextField(
+                value = TextFieldValue(titleValue, TextRange(titleValue.length)),
+                onValueChange = {
+                    titleValue = it.text
+                    onTitleChanged(it.text)
+                },
+                textStyle = titleStyle,
+                cursorBrush = brush,
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Sentences
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                decorationBox = { innerTextField ->
+                    if (titleValue.isEmpty()) {
+                        BasicText(
+                            text = stringResource(id = R.string.hint_title),
+                            style = titleStyle.copy(color = hintColor)
+                        )
+                    }
+                    innerTextField()
+                }
+            )
+        }
 
-    if(value.text.isEmpty()) {
-        BasicText(
-            text = stringResource(id = R.string.edit_text),
-            style = TextStyle(
-                fontSize = 16.sp,
-                color = Color.LightGray
-            ),
-            modifier = Modifier
-                .padding(
-                    horizontal = 16.dp,
-                    vertical = 12.dp
-                )
-        )
+        RtlTextWrapper(text, rtlLayout) {
+            BasicTextField(
+                state = value,
+                outputTransformation = OutputTransformation { onTextChanged(value.text.toString()) },
+                textStyle = textStyle,
+                cursorBrush = brush,
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Sentences
+                ),
+                onTextLayout = {
+                    layoutResult.value = it()
+                },
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .fillMaxSize()
+                    .focusRequester(focusRequester)
+            )
+        }
+
+        if (value.text.isEmpty()) {
+            BasicText(
+                text = stringResource(id = R.string.edit_text),
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    color = Color.LightGray
+                ),
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+            )
+        }
     }
 
     LaunchedEffect(Unit) {

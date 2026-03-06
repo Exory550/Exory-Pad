@@ -59,6 +59,7 @@ private fun StandaloneEditor(
     val rtlLayout by vm.prefs.rtlLayout.collectAsState()
 
     var text: String by rememberSaveable { mutableStateOf(initialText) }
+    var title: String by rememberSaveable { mutableStateOf("") }
     var showSaveDialog by rememberSaveable { mutableStateOf(false) }
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
     var showMenu by rememberSaveable { mutableStateOf(false) }
@@ -70,7 +71,8 @@ private fun StandaloneEditor(
     )
 
     val onSave = {
-        vm.saveNote(-1L, text) { onExit() }
+        val noteContent = if (title.isNotBlank()) "$title\n\n$text" else text
+        vm.saveNote(-1L, noteContent) { onExit() }
     }
 
     val onDismiss = { showMenu = false }
@@ -90,7 +92,7 @@ private fun StandaloneEditor(
         vm.shareNote(text)
     }
     val onBack: () -> Unit = {
-        if (text.isNotEmpty()) onSaveClick() else onExit()
+        if (text.isNotEmpty() || title.isNotEmpty()) onSaveClick() else onExit()
     }
 
     if (showDeleteDialog) {
@@ -105,7 +107,7 @@ private fun StandaloneEditor(
         )
     }
 
-    if(showSaveDialog) {
+    if (showSaveDialog) {
         SaveDialog(
             onConfirm = {
                 showSaveDialog = false
@@ -145,11 +147,14 @@ private fun StandaloneEditor(
         content = {
             EditNoteContent(
                 text = text,
+                title = title,
                 baseTextStyle = textStyle,
                 isLightTheme = isLightTheme,
                 rtlLayout = rtlLayout,
-                offset = null
-            ) { text = it }
+                offset = null,
+                onTextChanged = { text = it },
+                onTitleChanged = { title = it }
+            )
         }
     )
 }

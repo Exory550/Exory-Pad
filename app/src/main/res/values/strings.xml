@@ -94,4 +94,5 @@
         <item>Timestamp + first line</item>
     </string-array>
 
+    <string name="hint_title">Judul catatan</string>
 </resources>

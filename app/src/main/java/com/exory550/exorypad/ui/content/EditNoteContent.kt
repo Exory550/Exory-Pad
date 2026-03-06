@@ -36,6 +36,8 @@ import com.exory550.exorypad.R
 import com.exory550.exorypad.ui.components.RtlTextWrapper
 import com.exory550.exorypad.ui.previews.EditNotePreview
 import kotlinx.coroutines.delay
+import java.text.DateFormat
+import java.util.Date
 
 private fun String.toTextFieldState() = TextFieldState(
     initialText = this,
@@ -46,6 +48,7 @@ private fun String.toTextFieldState() = TextFieldState(
 fun EditNoteContent(
     text: String,
     title: String = "",
+    date: Date = Date(),
     baseTextStyle: TextStyle = TextStyle(),
     isLightTheme: Boolean = true,
     isPrinting: Boolean = false,
@@ -55,25 +58,28 @@ fun EditNoteContent(
     onTextChanged: (String) -> Unit = {},
     onTitleChanged: (String) -> Unit = {},
 ) {
-    val textStyle = if (isPrinting) {
-        baseTextStyle.copy(color = Color.Black)
-    } else baseTextStyle
+    val textStyle = if (isPrinting) baseTextStyle.copy(color = Color.Black) else baseTextStyle
 
-    val titleStyle = textStyle.copy(
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Bold
+    val titleStyle = textStyle.copy(fontSize = 20.sp, fontWeight = FontWeight.Bold)
+
+    val dateStyle = textStyle.copy(
+        fontSize = 12.sp,
+        color = if (isLightTheme) Color.Gray else Color.DarkGray
     )
 
     val hintColor = if (isLightTheme) Color.Gray else Color.DarkGray
+    val dateText = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT).format(date)
 
     val focusRequester = remember { FocusRequester() }
     var value by remember { mutableStateOf(text.toTextFieldState()) }
     var titleValue by rememberSaveable { mutableStateOf(title) }
 
     LaunchedEffect(text) {
-        if (text != value.text) {
-            value = text.toTextFieldState()
-        }
+        if (text != value.text) value = text.toTextFieldState()
+    }
+
+    LaunchedEffect(title) {
+        if (title != titleValue) titleValue = title
     }
 
     val brush = SolidColor(
@@ -96,9 +102,7 @@ fun EditNoteContent(
                 },
                 textStyle = titleStyle,
                 cursorBrush = brush,
-                keyboardOptions = KeyboardOptions(
-                    capitalization = KeyboardCapitalization.Sentences
-                ),
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -114,42 +118,41 @@ fun EditNoteContent(
             )
         }
 
+        BasicText(
+            text = dateText,
+            style = dateStyle,
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 8.dp)
+        )
+
         RtlTextWrapper(text, rtlLayout) {
             BasicTextField(
                 state = value,
                 outputTransformation = OutputTransformation { onTextChanged(value.text.toString()) },
                 textStyle = textStyle,
                 cursorBrush = brush,
-                keyboardOptions = KeyboardOptions(
-                    capitalization = KeyboardCapitalization.Sentences
-                ),
-                onTextLayout = {
-                    layoutResult.value = it()
-                },
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
+                onTextLayout = { layoutResult.value = it() },
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 4.dp)
                     .fillMaxSize()
-                    .focusRequester(focusRequester)
-            )
-        }
-
-        if (value.text.isEmpty()) {
-            BasicText(
-                text = stringResource(id = R.string.edit_text),
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    color = Color.LightGray
-                ),
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .focusRequester(focusRequester),
+                decorator = { innerTextField ->
+                    if (value.text.isEmpty()) {
+                        BasicText(
+                            text = stringResource(id = R.string.hint_note),
+                            style = textStyle.copy(color = hintColor)
+                        )
+                    }
+                    innerTextField()
+                }
             )
         }
     }
 
     LaunchedEffect(Unit) {
-        if (waitForAnimation) {
-            delay(200)
-        }
+        if (waitForAnimation) delay(200)
 
         offset?.let { offset ->
             layoutResult.value?.let { layoutResult ->

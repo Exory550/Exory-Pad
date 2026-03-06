@@ -552,7 +552,7 @@ private fun ExorypadComposeApp(
             }
 
             vm.registerKeyboardShortcuts(
-                KeyEvent.KEYCODE_S to { vm.saveNote(note.id, fullText(), vm::getNote) },
+                KeyEvent.KEYCODE_S to { vm.saveNote(note.id, fullText()) { vm.getNote(it) } },
                 KeyEvent.KEYCODE_D to onDeleteClick,
                 KeyEvent.KEYCODE_H to { onShareClick(fullText()) }
             )

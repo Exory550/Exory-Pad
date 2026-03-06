@@ -23,20 +23,16 @@ class ExorypadRepository(
     val savedDraftId get() = database.noteMetadataQueries.getDraftId()
         .asFlow()
         .mapToList()
-        .map {
-            it.firstOrNull() ?: -1L
-        }
+        .map { it.firstOrNull() ?: -1L }
 
     fun noteMetadataFlow(order: SortOrder) = with(database.noteMetadataQueries) {
-        when(order) {
+        when (order) {
             DateDescending -> getSortedByDateDescending().asFlow().mapToList()
             DateAscending -> getSortedByDateAscending().asFlow().mapToList()
             TitleDescending, TitleAscending -> {
                 val collator = Collator.getInstance()
                 getUnsorted().asFlow().mapToList().map { notes ->
-                    val sortedNotes = notes.sortedWith { a, b ->
-                        collator.compare(a.title, b.title)
-                    }
+                    val sortedNotes = notes.sortedWith { a, b -> collator.compare(a.title, b.title) }
                     if (order == TitleDescending) sortedNotes.reversed() else sortedNotes
                 }
             }
@@ -48,11 +44,7 @@ class ExorypadRepository(
             val metadata = noteMetadataQueries.get(id).executeAsList().lastOrNull() ?: Defaults.metadata
             val crossRef = crossRefQueries.get(metadata.metadataId).executeAsList().lastOrNull() ?: Defaults.crossRef
             val contents = noteContentsQueries.get(crossRef.contentsId).executeAsList().lastOrNull() ?: Defaults.contents
-
-            Note(
-                metadata = metadata,
-                contents = contents
-            )
+            Note(metadata = metadata, contents = contents)
         }
     }
 
@@ -60,15 +52,10 @@ class ExorypadRepository(
         transactionWithResult {
             val crossRefList = crossRefQueries.getMultiple(metadataList.map { it.metadataId }).executeAsList()
             val contentsList = noteContentsQueries.getMultiple(crossRefList.map { it.contentsId }).executeAsList()
-
             crossRefList.map { crossRef ->
                 Note(
-                    metadata = metadataList.find {
-                        it.metadataId == crossRef.metadataId
-                    } ?: Defaults.metadata,
-                    contents = contentsList.find {
-                        it.contentsId == crossRef.contentsId
-                    } ?: Defaults.contents
+                    metadata = metadataList.find { it.metadataId == crossRef.metadataId } ?: Defaults.metadata,
+                    contents = contentsList.find { it.contentsId == crossRef.contentsId } ?: Defaults.contents
                 )
             }
         }
@@ -79,15 +66,24 @@ class ExorypadRepository(
         text: String,
         date: Date = Date(),
         draftText: String? = null,
+        label: String = "",
+        imagePaths: String = "",
+        audioPath: String = "",
+        reminderTime: Date? = null,
         onSuccess: suspend (Long) -> Unit = {}
     ) = try {
         val crossRef = database.crossRefQueries.get(id).executeAsOneOrNull()
+        val existing = if (crossRef != null) database.noteMetadataQueries.get(crossRef.metadataId).executeAsOneOrNull() else null
 
         val metadata = NoteMetadata(
             metadataId = crossRef?.metadataId ?: -1,
             title = text.substringBefore("\n"),
             date = date,
-            hasDraft = draftText != null
+            hasDraft = draftText != null,
+            label = label.ifEmpty { existing?.label ?: "" },
+            imagePaths = imagePaths.ifEmpty { existing?.imagePaths ?: "" },
+            audioPath = audioPath.ifEmpty { existing?.audioPath ?: "" },
+            reminderTime = reminderTime ?: existing?.reminderTime
         )
 
         val contents = NoteContents(
@@ -104,12 +100,10 @@ class ExorypadRepository(
             } ?: run {
                 noteMetadataQueries.insert(metadata)
                 noteContentsQueries.insert(contents)
-
                 val newCrossRef = CrossRef(
                     metadataId = noteMetadataQueries.getIndex().executeAsOne(),
                     contentsId = noteContentsQueries.getIndex().executeAsOne()
                 )
-
                 crossRefQueries.insert(newCrossRef)
                 onSuccess(newCrossRef.metadataId)
             }
@@ -126,7 +120,6 @@ class ExorypadRepository(
                 crossRefQueries.delete(id)
             }
         }
-
         onSuccess()
     } catch (e: Exception) {
         e.printStackTrace()
@@ -140,7 +133,6 @@ class ExorypadRepository(
                 crossRefQueries.deleteMultiple(ids)
             }
         }
-
         onSuccess()
     } catch (e: Exception) {
         e.printStackTrace()

@@ -7,7 +7,11 @@ object Defaults {
         metadataId = -1,
         title = "",
         date = Date(),
-        hasDraft = false
+        hasDraft = false,
+        label = "",
+        imagePaths = "",
+        audioPath = "",
+        reminderTime = null
     )
 
     val contents = NoteContents(

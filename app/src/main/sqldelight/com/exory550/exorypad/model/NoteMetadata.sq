@@ -4,14 +4,18 @@ CREATE TABLE IF NOT EXISTS NoteMetadata(
     metadataId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     title TEXT NOT NULL,
     date INTEGER AS Date NOT NULL,
-    hasDraft INTEGER AS Boolean NOT NULL
+    hasDraft INTEGER AS Boolean NOT NULL,
+    label TEXT NOT NULL DEFAULT '',
+    imagePaths TEXT NOT NULL DEFAULT '',
+    audioPath TEXT NOT NULL DEFAULT '',
+    reminderTime INTEGER AS Date
 );
 
 update:
-INSERT OR REPLACE INTO NoteMetadata(metadataId, title, date, hasDraft) VALUES ?;
+INSERT OR REPLACE INTO NoteMetadata(metadataId, title, date, hasDraft, label, imagePaths, audioPath, reminderTime) VALUES ?;
 
 insert:
-INSERT OR REPLACE INTO NoteMetadata(title, date, hasDraft) VALUES ?;
+INSERT OR REPLACE INTO NoteMetadata(title, date, hasDraft, label, imagePaths, audioPath, reminderTime) VALUES ?;
 
 delete:
 DELETE FROM NoteMetadata WHERE metadataId = :id;

@@ -22,10 +22,7 @@ fun NoteListMenu(
 ) {
     Box {
         MoreButton(onMoreClick)
-        DropdownMenu(
-            expanded = showMenu,
-            onDismissRequest = onDismiss
-        ) {
+        DropdownMenu(expanded = showMenu, onDismissRequest = onDismiss) {
             MenuItem(R.string.action_settings, onSettingsClick)
             MenuItem(R.string.import_notes, onImportClick)
             MenuItem(R.string.export_all_notes, onExportAllClick)
@@ -42,14 +39,19 @@ fun NoteViewEditMenu(
     onMoreClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
     onExportClick: () -> Unit = {},
-    onPrintClick: () -> Unit = {}
+    onPrintClick: () -> Unit = {},
+    onLabelClick: () -> Unit = {},
+    onAddImageClick: () -> Unit = {},
+    onRecordAudioClick: () -> Unit = {},
+    onSetReminderClick: () -> Unit = {}
 ) {
     Box {
         MoreButton(onMoreClick)
-        DropdownMenu(
-            expanded = showMenu,
-            onDismissRequest = onDismiss
-        ) {
+        DropdownMenu(expanded = showMenu, onDismissRequest = onDismiss) {
+            MenuItem(R.string.action_label, onLabelClick)
+            MenuItem(R.string.action_add_image, onAddImageClick)
+            MenuItem(R.string.action_record_audio, onRecordAudioClick)
+            MenuItem(R.string.action_set_reminder, onSetReminderClick)
             MenuItem(R.string.action_share, onShareClick)
             MenuItem(R.string.action_export, onExportClick)
             MenuItem(R.string.action_print, onPrintClick)
@@ -62,14 +64,19 @@ fun StandaloneEditorMenu(
     showMenu: Boolean = false,
     onDismiss: () -> Unit,
     onMoreClick: () -> Unit = {},
-    onShareClick: () -> Unit = {}
+    onShareClick: () -> Unit = {},
+    onLabelClick: () -> Unit = {},
+    onAddImageClick: () -> Unit = {},
+    onRecordAudioClick: () -> Unit = {},
+    onSetReminderClick: () -> Unit = {}
 ) {
     Box {
         MoreButton(onMoreClick)
-        DropdownMenu(
-            expanded = showMenu,
-            onDismissRequest = onDismiss
-        ) {
+        DropdownMenu(expanded = showMenu, onDismissRequest = onDismiss) {
+            MenuItem(R.string.action_label, onLabelClick)
+            MenuItem(R.string.action_add_image, onAddImageClick)
+            MenuItem(R.string.action_record_audio, onRecordAudioClick)
+            MenuItem(R.string.action_set_reminder, onSetReminderClick)
             MenuItem(R.string.action_share, onShareClick)
         }
     }

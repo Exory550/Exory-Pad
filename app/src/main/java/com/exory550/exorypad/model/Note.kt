@@ -11,4 +11,8 @@ data class Note(
     val draftText: String get() = contents.draftText ?: ""
     val title: String get() = metadata.title
     val date: Date get() = metadata.date
+    val label: String get() = metadata.label
+    val imagePaths: List<String> get() = metadata.imagePaths.split("|").filter { it.isNotEmpty() }
+    val audioPath: String get() = metadata.audioPath
+    val reminderTime: Date? get() = metadata.reminderTime
 }

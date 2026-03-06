@@ -21,6 +21,11 @@ import com.exory550.exorypad.ui.components.ExorypadTheme
 import com.exory550.exorypad.ui.components.SaveButton
 import com.exory550.exorypad.ui.components.SaveDialog
 import com.exory550.exorypad.ui.components.StandaloneEditorMenu
+import com.exory550.exorypad.ui.components.LabelDialog
+import com.exory550.exorypad.ui.components.ReminderDialog
+import com.exory550.exorypad.utils.setReminder
+import com.exory550.exorypad.utils.cancelReminder
+import androidx.compose.ui.platform.LocalContext
 import com.exory550.exorypad.ui.content.EditNoteContent
 import com.exory550.exorypad.viewmodel.ExorypadViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -67,6 +72,9 @@ private fun StandaloneEditor(
     var showSaveDialog by rememberSaveable { mutableStateOf(false) }
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
     var showMenu by rememberSaveable { mutableStateOf(false) }
+    var showLabelDialog by rememberSaveable { mutableStateOf(false) }
+    var showReminderDialog by rememberSaveable { mutableStateOf(false) }
+    var noteLabel by rememberSaveable { mutableStateOf("") }
 
     val textStyle = TextStyle(
         color = colorResource(id = primaryColorRes),
@@ -81,7 +89,10 @@ private fun StandaloneEditor(
         vm.saveNote(-1L, noteContent) { onExit() }
     }
 
+    val context = LocalContext.current
     val onDismiss = { showMenu = false }
+    val onLabelClick: () -> Unit = { onDismiss(); showLabelDialog = true }
+    val onSetReminderClick: () -> Unit = { onDismiss(); showReminderDialog = true }
     val onMoreClick = { showMenu = true }
     val onSaveClick: () -> Unit = {
         if (showDialogs) showSaveDialog = true else onSave()
@@ -125,6 +136,32 @@ private fun StandaloneEditor(
         )
     }
 
+    if (showLabelDialog) {
+        LabelDialog(
+            currentLabel = noteLabel,
+            onConfirm = { newLabel ->
+                noteLabel = newLabel
+                showLabelDialog = false
+            },
+            onDismiss = { showLabelDialog = false }
+        )
+    }
+
+    if (showReminderDialog) {
+        ReminderDialog(
+            onConfirm = { time ->
+                showReminderDialog = false
+                context.setReminder(-1L, title, time)
+                vm.showToast(R.string.reminder_set)
+            },
+            onCancel = {
+                showReminderDialog = false
+                vm.showToast(R.string.reminder_cancelled)
+            },
+            onDismiss = { showReminderDialog = false }
+        )
+    }
+
     BackHandler(onBack = onBack)
 
     Scaffold(
@@ -141,6 +178,8 @@ private fun StandaloneEditor(
                         showMenu = showMenu,
                         onDismiss = onDismiss,
                         onMoreClick = onMoreClick,
+                        onLabelClick = onLabelClick,
+                        onSetReminderClick = onSetReminderClick,
                         onShareClick = onShareClick
                     )
                 }

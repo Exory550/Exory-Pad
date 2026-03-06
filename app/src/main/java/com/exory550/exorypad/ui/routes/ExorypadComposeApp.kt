@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,6 +56,10 @@ import com.exory550.exorypad.model.NavState.View
 import com.exory550.exorypad.model.NoteMetadata
 import com.exory550.exorypad.model.navStateSaver
 import com.exory550.exorypad.ui.components.AboutDialog
+import com.exory550.exorypad.ui.components.LabelDialog
+import com.exory550.exorypad.ui.components.ReminderDialog
+import com.exory550.exorypad.utils.setReminder
+import com.exory550.exorypad.utils.cancelReminder
 import com.exory550.exorypad.ui.components.AppBarText
 import com.exory550.exorypad.ui.components.BackButton
 import com.exory550.exorypad.ui.components.DeleteButton
@@ -155,8 +160,11 @@ private fun ExorypadComposeApp(
     var showFirstRunDialog by rememberSaveable { mutableStateOf(false) }
     var showFirstViewDialog by rememberSaveable { mutableStateOf(false) }
     var showMenu by rememberSaveable { mutableStateOf(false) }
+    var showLabelDialog by rememberSaveable { mutableStateOf(false) }
+    var showReminderDialog by rememberSaveable { mutableStateOf(false) }
     var editTitle by rememberSaveable { mutableStateOf("") }
 
+    val context = LocalContext.current
     val printController = rememberPrintableController()
     val lifecycleOwner = LocalLifecycleOwner.current
     val haptics = LocalHapticFeedback.current
@@ -197,6 +205,8 @@ private fun ExorypadComposeApp(
     }
     val onMultiDeleteClick = { showMultiDeleteDialog = true }
     val onDismiss = { showMenu = false }
+    val onLabelClick: () -> Unit = { onDismiss(); showLabelDialog = true }
+    val onSetReminderClick: () -> Unit = { onDismiss(); showReminderDialog = true }
     val onMoreClick = { showMenu = true }
     val onSaveClick: (
         fromSaveButton: Boolean,
@@ -306,6 +316,34 @@ private fun ExorypadComposeApp(
             showFirstRunDialog = false
             vm.firstRunComplete()
         }
+    }
+
+    if (showLabelDialog) {
+        LabelDialog(
+            currentLabel = note.label,
+            onConfirm = { newLabel ->
+                showLabelDialog = false
+                vm.saveNote(note.id, fullText(), label = newLabel) {}
+            },
+            onDismiss = { showLabelDialog = false }
+        )
+    }
+
+    if (showReminderDialog) {
+        ReminderDialog(
+            onConfirm = { time ->
+                showReminderDialog = false
+                vm.saveNote(note.id, fullText(), reminderTime = time) {}
+                context.setReminder(note.id, note.title, time)
+                vm.showToast(R.string.reminder_set)
+            },
+            onCancel = {
+                showReminderDialog = false
+                context.cancelReminder(note.id)
+                vm.showToast(R.string.reminder_cancelled)
+            },
+            onDismiss = { showReminderDialog = false }
+        )
     }
 
     if (showFirstViewDialog) {
@@ -475,6 +513,8 @@ private fun ExorypadComposeApp(
                         showMenu = showMenu,
                         onDismiss = onDismiss,
                         onMoreClick = onMoreClick,
+                        onLabelClick = onLabelClick,
+                        onSetReminderClick = onSetReminderClick,
                         onShareClick = { onShareClick(note.text) },
                         onExportClick = { onExportClick(note.metadata, note.text) },
                         onPrintClick = onPrintClick
@@ -527,6 +567,8 @@ private fun ExorypadComposeApp(
                         showMenu = showMenu,
                         onDismiss = onDismiss,
                         onMoreClick = onMoreClick,
+                        onLabelClick = onLabelClick,
+                        onSetReminderClick = onSetReminderClick,
                         onShareClick = { onShareClick(fullText()) },
                         onExportClick = { onExportClick(note.metadata.copy(title = editTitle), fullText()) },
                         onPrintClick = onPrintClick
